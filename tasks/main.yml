@@ -1,0 +1,42 @@
+---
+#tasks file for roles/nginx
+# - name: Display facts
+#   debug:
+#     var: ansible_facts
+#   when: ansible_pkg_mgr == "dnf"
+
+- name: SYSTEM | Update DNF repo for CentOS 8
+  include_tasks: dnf_prepare.yml
+  when: ansible_pkg_mgr == "dnf"
+
+- name: SYSTEM | Prepare systems
+  include_tasks: pre_task.yml
+
+- name: NGINX | Install Web Server
+  become: true
+  block:
+    - name: NGINX | Install on RedHat Family (YUM)
+      ansible.builtin.yum:
+        name: nginx
+        update_cache: true
+      when: ansible_pkg_mgr == "yum"
+    - name: NGINX | Install on RedHat Family (DNF)
+      ansible.builtin.dnf:
+        name: nginx
+        update_cache: true
+      when: ansible_pkg_mgr == "dnf"
+    - name: NGINX | Install on Debian Family (APT)
+      ansible.builtin.apt:
+        name: nginx
+        update_cache: true
+      when: ansible_pkg_mgr == "apt"
+
+- name: NGINX | Create global config
+  become: true
+  ansible.builtin.template:
+    src: nginx.j2
+    dest: /etc/nginx/nginx.conf
+    mode: "0644"
+
+- name: NGINX | Restarted service
+  include_tasks: service.yml

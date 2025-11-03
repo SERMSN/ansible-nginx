@@ -1,0 +1,20 @@
+- name: Verify
+  hosts: all
+  gather_facts: false
+  
+  tasks:
+    - name: Get Nginx version
+      ansible.builtin.command: "nginx -v"
+      changed_when: false
+      register: nginx_version
+    - name: Assert Nginx instalation
+      ansible.builtin.assert:
+        that: "'{{ nginx_version.rc }}' == '0'"
+
+    - name: Get Nginx validation
+      ansible.builtin.command: "nginx -t"
+      changed_when: false
+      register: nginx_check
+    - name: Assert Nginx validation
+      ansible.builtin.assert:
+        that: "'{{ nginx_check.rc }}' == '0'"

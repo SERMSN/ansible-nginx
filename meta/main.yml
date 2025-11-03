@@ -1,0 +1,33 @@
+galaxy_info:
+  role_name: nginx
+  namespace: infernofeniks
+  author: Maxim Kuzin
+  company: InfernoFeniks
+  description: Role for installation and managing nginx server
+
+  license: MIT
+
+  min_ansible_version: "2.11"
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - focal
+        - bionic
+        - xenial
+    - name: Debian
+      versions:
+        - bullseye
+        - buster
+    - name: EL
+      versions:
+        - "7"
+        - "8"
+
+
+  galaxy_tags:
+    - web
+    - nginx
+    - http
+
+dependencies: []

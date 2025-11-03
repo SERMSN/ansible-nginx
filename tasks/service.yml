@@ -1,0 +1,6 @@
+- name: NGINX | Started service
+  become: true
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+  when: ansible_facts.virtualization_type != "docker" and ansible_facts.virtualization_type != "podman"
