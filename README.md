@@ -35,4 +35,4 @@ This project is licensed under MIT License. See [LICENSE](/LICENSE) for more det
 
 [NGINX](https://www.nginx.com/products/nginx/compare-models/) by [F5, Inc.](https://www.nginx.com/about/).
 
-Role by `InfernoFeniks`.
+Role by `WRCS`.
